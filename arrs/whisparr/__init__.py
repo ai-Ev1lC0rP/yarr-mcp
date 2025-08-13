@@ -4,8 +4,8 @@ from typing import List
 import requests
 
 from radarr_sonarr_mcp.config import WhisparrConfig
-from .base import BaseArrService
-from .radarr import Movie
+from ..base import BaseArrService
+from ..radarr import Movie
 
 
 class WhisparrService(BaseArrService):
