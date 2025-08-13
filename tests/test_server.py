@@ -12,8 +12,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from radarr_sonarr_mcp.config import Config, NasConfig, RadarrConfig, SonarrConfig, ServerConfig
 from radarr_sonarr_mcp.server import RadarrSonarrMCPServer, create_server
-from radarr_sonarr_mcp.services.radarr_service import Movie
-from radarr_sonarr_mcp.services.sonarr_service import Series, Statistics
+from arrs.radarr import Movie
+from arrs.sonarr import Series, Statistics
 
 
 class TestRadarrSonarrMCPServer(unittest.TestCase):
