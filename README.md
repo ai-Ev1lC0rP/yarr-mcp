@@ -12,6 +12,8 @@
 Yarr is a Python-based [Model Context Protocol](https://github.com/modelcontextprotocol) server that gives AI assistants like Claude natural-language access to your Radarr (movies) and Sonarr (TV series) libraries.
 Lightweight clients for the rest of the `arr` ecosystem – Lidarr, Whisparr and Readarr – are included so you can extend the same tooling to music, adult content and ebooks.
 
+For additional details on installing and configuring these services, consult the [Servarr Wiki Reference](docs/servarr_wiki_reference.md).
+
 ## Architecture
 
 ```mermaid
