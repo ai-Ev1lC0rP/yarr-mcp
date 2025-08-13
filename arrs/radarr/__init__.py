@@ -5,7 +5,7 @@ from typing import List, Dict, Any
 import requests
 
 from radarr_sonarr_mcp.config import RadarrConfig
-from .base import BaseArrService
+from ..base import BaseArrService
 
 
 @dataclass
