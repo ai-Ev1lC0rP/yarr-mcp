@@ -1,25 +1,41 @@
-# Radarr and Sonarr MCP Server
+# Radarr & Sonarr MCP Server
 
-A Python-based Model Context Protocol (MCP) server that provides AI assistants like Claude with access to your Radarr (movies) and Sonarr (TV series) data. The project also includes lightweight wrappers for additional `arr` applications so the same tooling can be used with Whisparr, Lidarr and Readarr.
+[![PyPI version](https://img.shields.io/pypi/v/radarr-sonarr-mcp.svg)](https://pypi.org/project/radarr-sonarr-mcp/)
+[![Python versions](https://img.shields.io/pypi/pyversions/radarr-sonarr-mcp.svg)](https://pypi.org/project/radarr-sonarr-mcp/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Overview
+<p align="center">
+  <img src="docs/images/radarr.svg" alt="Radarr logo" width="130"/>
+  <img src="docs/images/sonarr.svg" alt="Sonarr logo" width="130"/>
+</p>
 
-This MCP server allows AI assistants to query your movie and TV show collection via Radarr and Sonarr APIs. Built with FastMCP, it implements the standardized protocol for AI context that Claude Desktop and other MCP-compatible clients can use.
+A Python-based [Model Context Protocol](https://github.com/modelcontextprotocol) server that gives AI assistants like Claude natural-language access to your Radarr (movies) and Sonarr (TV series) libraries.
+Lightweight clients for the rest of the `arr` ecosystem – Lidarr, Whisparr and Readarr – are included so you can extend the same tooling to music, adult content and ebooks.
+
+## How does it work?
+
+```mermaid
+flowchart LR
+    Client[Claude Desktop\n or any MCP Client] -->|MCP| Server[Radarr & Sonarr MCP Server]
+    Server -->|REST API| Radarr
+    Server -->|REST API| Sonarr
+    Server -->|Optional| Whisparr
+    Server -->|Optional| Lidarr
+    Server -->|Optional| Readarr
+```
 
 ## Features
 
-- **Native MCP Implementation**: Built with FastMCP for seamless AI integration
-- **Radarr Integration**: Access your movie collection
-- **Sonarr Integration**: Access your TV show and episode data
-- **Whisparr/Lidarr/Readarr Support**: Re-usable service clients for the wider `arr` ecosystem
-- **Rich Filtering**: Filter by year, watched status, actors, and more
-- **Claude Desktop Compatible**: Works seamlessly with Claude's MCP client
-- **Easy Setup**: Interactive configuration wizard
-- **Well-tested**: Comprehensive test suite for reliability
+- **Native MCP implementation** powered by FastMCP for seamless AI integration
+- **Radarr integration** for querying your movie collection
+- **Sonarr integration** for series and episode data
+- **Whisparr/Lidarr/Readarr support** via reusable service clients
+- **Rich filtering** by year, watched status, actors and more
+- **Claude Desktop compatible** – works with any MCP client
+- **Interactive configuration wizard** with secure keyring storage
+- **Comprehensive test suite** for reliability
 
 ## Project Structure
-
-Arr service wrappers live in the top-level `arrs/` package for clarity:
 
 ```
 arrs/
@@ -31,22 +47,17 @@ arrs/
   readarr.py     # Readarr client
 ```
 
-The MCP server and CLI remain under `radarr_sonarr_mcp/`.
+The MCP server and CLI live under `radarr_sonarr_mcp/`.
 
 ## Installation
 
-### From Source
+### From source
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/radarr-sonarr-mcp.git
-   cd radarr-sonarr-mcp-python
-   ```
-
-2. Install the package:
-   ```bash
-   pip install -e .
-   ```
+```bash
+git clone https://github.com/yourusername/radarr-sonarr-mcp.git
+cd radarr-sonarr-mcp
+pip install -e .
+```
 
 ### Using pip (coming soon)
 
@@ -54,58 +65,15 @@ The MCP server and CLI remain under `radarr_sonarr_mcp/`.
 pip install radarr-sonarr-mcp
 ```
 
-## Setup scripts
-
-Scripts are provided to help capture endpoint URLs and API keys for the various `arr` services. The keys are stored in your operating system's keyring while the host URLs are written to `~/.yarr_config.json`.
-
-On Linux:
-
-```bash
-scripts/setup_linux.sh
-```
-
-On Windows PowerShell:
-
-```powershell
-scripts/setup_windows.ps1
-```
-
-You will be prompted with questions such as:
-
-```
-Please enter your Sonarr Host URL: https://sonarr.example.com
-Please enter your Sonarr Api Key: <your key>
-```
-
-Repeat the prompts for Radarr, Whisparr, Lidarr and Readarr.
-
-## Quick Start
-
-1. Configure the server:
-   ```bash
-   radarr-sonarr-mcp configure
-   ```
-   Follow the prompts to enter your Radarr/Sonarr API keys and other settings.
-
-2. Start the server:
-   ```bash
-   radarr-sonarr-mcp start
-   ```
-
-3. Connect Claude Desktop:
-   - In Claude Desktop, go to Settings > MCP Servers
-   - Add a new server with URL: `http://localhost:3000` (or your configured port)
-
 ## Configuration
 
-The configuration wizard will guide you through setting up:
+Run the interactive wizard to capture API endpoints and keys. Endpoint URLs are stored in `~/.yarr_config.json` and keys are saved in your OS keyring.
 
-- NAS/Server IP address
-- Radarr API key and port
-- Sonarr API key and port
-- MCP server port
+```bash
+radarr-sonarr-mcp configure
+```
 
-You can also manually edit the `config.json` file:
+Example `config.json`:
 
 ```json
 {
@@ -129,80 +97,99 @@ You can also manually edit the `config.json` file:
 }
 ```
 
-## Available MCP Tools
+### Setup scripts
 
-This server provides the following tools to Claude:
+Collect keys automatically with the provided scripts:
+
+```bash
+# Linux
+scripts/setup_linux.sh
+
+# Windows PowerShell
+scripts/setup_windows.ps1
+```
+
+You will be prompted for each service:
+
+```
+Please enter your Sonarr Host URL: https://sonarr.example.com
+Please enter your Sonarr Api Key: <your key>
+```
+
+## Quick Start
+
+1. Configure the server:
+   ```bash
+   radarr-sonarr-mcp configure
+   ```
+2. Start it:
+   ```bash
+   radarr-sonarr-mcp start
+   ```
+3. Connect Claude Desktop:
+   - Open **Settings → MCP Servers**
+   - Add `http://localhost:3000` (or your configured port)
+
+## MCP Tools
 
 ### Movies
-- `get_available_movies` - Get a list of movies with optional filters
-- `lookup_movie` - Search for a movie by title
-- `get_movie_details` - Get detailed information about a specific movie
+- `get_available_movies` – List movies with optional filters
+- `lookup_movie` – Search by title
+- `get_movie_details` – Detailed info for a movie
 
 ### Series
-- `get_available_series` - Get a list of TV series with optional filters
-- `lookup_series` - Search for a TV series by title
-- `get_series_details` - Get detailed information about a specific series
-- `get_series_episodes` - Get episodes for a specific series
+- `get_available_series` – List TV series with filters
+- `lookup_series` – Search by title
+- `get_series_details` – Detailed info for a series
+- `get_series_episodes` – Episode list for a series
 
 ### Resources
 
-The server also provides standard MCP resources:
-
-- `/movies` - Browse all available movies
-- `/series` - Browse all available TV series
+- `/movies` – Browse all available movies
+- `/series` – Browse all available TV series
 
 ### Filtering Options
 
-Most tools support various filtering options:
+Most tools support parameters such as:
 
-- `year` - Filter by release year
-- `watched` - Filter by watched status (true/false)
-- `downloaded` - Filter by download status (true/false)
-- `watchlist` - Filter by watchlist status (true/false)
-- `actors` - Filter by actor/cast name
-- `actresses` - Filter by actress name (movies only)
+- `year` – Release year
+- `watched` – Watched status (`true`/`false`)
+- `downloaded` – Downloaded status (`true`/`false`)
+- `watchlist` – Watchlist status (`true`/`false`)
+- `actors` – Actor or cast names
+- `actresses` – Actress names (movies only)
 
-## Example Queries for Claude
+## Example Queries
 
-Once your MCP server is connected to Claude Desktop, you can ask questions like:
+Once connected to Claude Desktop you can ask:
 
 - "What sci-fi movies from 2023 do I have?"
 - "Show me TV shows starring Pedro Pascal"
-- "Do I have any unwatched episodes of The Mandalorian?"
+- "Do I have any unwatched episodes of *The Mandalorian*?"
 - "Find movies with Tom Hanks that I haven't watched yet"
-- "How many episodes of Stranger Things do I have downloaded?"
+- "How many episodes of *Stranger Things* are downloaded?"
 
 ## Finding API Keys
 
+All `*arr` services expose their API key in the same location.
+
 ### Radarr API Key
 1. Open Radarr in your browser
-2. Go to Settings > General
-3. Find the "API Key" section
-4. Copy the API Key
+2. Go to **Settings → General**
+3. Copy the **API Key**
 
 ### Sonarr API Key
-1. Open Sonarr in your browser  
-2. Go to Settings > General
-3. Find the "API Key" section
-4. Copy the API Key
+1. Open Sonarr in your browser
+2. Go to **Settings → General**
+3. Copy the **API Key**
 
-## Command-Line Interface
-
-The package provides a command-line interface:
-
-- `radarr-sonarr-mcp configure` - Run configuration wizard
-- `radarr-sonarr-mcp start` - Start the MCP server
-- `radarr-sonarr-mcp status` - Show the current configuration
+The API key for Lidarr, Whisparr, Readarr, and other Arr apps is found under **Settings → General** as well.
 
 ## Development
 
-### Running Tests
-
-To run the test suite:
-
 ```bash
-# Install development dependencies
-pip install -e ".[dev]"
+# Install dev dependencies
+pip install -e .[dev]
 
 # Run tests
 pytest
@@ -211,23 +198,24 @@ pytest
 pytest --cov=radarr_sonarr_mcp
 ```
 
-### Local Development
-
-For quick development and testing:
+For quick local iteration:
 
 ```bash
-# Run directly without installation
 python run.py
 ```
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.10+
 - FastMCP
 - Requests
 - Pydantic
 
-## Notes
+## Contributors
 
-- The watched/watchlist status functionality assumes these are tracked using specific mechanisms in Radarr/Sonarr. You may need to adapt this to your specific setup.
-- For security reasons, it's recommended to run this server only on your local network.
+- Initial work – [@berry](https://github.com/yourusername)
+
+## License
+
+MIT
+
