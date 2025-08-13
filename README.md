@@ -5,7 +5,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/Radarr.png" alt="Radarr logo" width="130"/>
   <img src="https://raw.githubusercontent.com/Sonarr/Sonarr/develop/Logo/Sonarr.svg" alt="Sonarr logo" width="130"/>
   <img src="https://raw.githubusercontent.com/Readarr/Readarr/develop/Logo/Readarr.svg" alt="Readarr logo" width="130"/>
   <img src="https://raw.githubusercontent.com/Lidarr/Lidarr/develop/Logo/Lidarr.svg" alt="Lidarr logo" width="130"/>
