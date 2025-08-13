@@ -99,7 +99,7 @@ Example `config.json`:
 
 ### Setup scripts
 
-Collect keys automatically with the provided scripts:
+Bootstrap the project and collect service credentials with the provided scripts:
 
 ```bash
 # Linux
@@ -108,6 +108,13 @@ scripts/setup_linux.sh
 # Windows PowerShell
 scripts/setup_windows.ps1
 ```
+
+These scripts will:
+
+- Ensure Python 3 is available and create a virtual environment in `.venv`
+- Install dependencies from `requirements.txt`
+- Prompt for service host URLs and API keys
+- Write the values to a `.env` file and to `~/.yarr_config.json` with keys stored in your OS keyring
 
 You will be prompted for each service:
 
