@@ -5,6 +5,7 @@ from dataclasses import dataclass, asdict, field
 from pathlib import Path
 from typing import Optional
 import json
+import os
 
 try:
     import keyring  # type: ignore
@@ -55,7 +56,7 @@ class NasConfig:
 
 @dataclass
 class ServerConfig:
-    port: int = 3000
+    port: int = field(default_factory=lambda: int(os.getenv("MCP_SERVER_PORT", "3333")))
 
 
 @dataclass
@@ -113,6 +114,9 @@ def load_config(path: Optional[str] = None) -> Config:
         readarr_config=_svc(ReadarrConfig, data.get("readarrConfig", {}), "8787"),
         server_config=ServerConfig(**data.get("server", {})),
     )
+
+    # Allow environment variable to override configured port
+    cfg.server_config.port = int(os.getenv("MCP_SERVER_PORT", cfg.server_config.port))
 
     _apply_keyring(cfg.radarr_config, "radarr")
     _apply_keyring(cfg.sonarr_config, "sonarr")

@@ -12,7 +12,7 @@
         "SONARR_PORT": "8989",
         "RADARR_API_KEY": "x",
         "SONARR_API_KEY": "x",
-        "MCP_SERVER_PORT": "3000",
+        "MCP_SERVER_PORT": "3333",
         "JELLYFIN_BASE_URL": "http://10.0.0.23:5055",
         "JELLYFIN_API_KEY": "your_jellyfin_api_key",
         "JELLYFIN_USER_ID": "your_jellyfin_user_id",
