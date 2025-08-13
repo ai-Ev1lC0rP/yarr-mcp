@@ -34,11 +34,12 @@ def configure():
     if not radarr_api_key:
         logging.warning("Warning: Radarr API key is required for movie functionality!")
     
-    radarr_port = input(f"Radarr port [{config.radarr_config.port if config else '7878'}]: ")
-    radarr_port = radarr_port or (config.radarr_config.port if config else '7878')
-    
-    radarr_base_path = input(f"Radarr API base path [{config.radarr_config.base_path if config else '/api/v3'}]: ")
-    radarr_base_path = radarr_base_path or (config.radarr_config.base_path if config else '/api/v3')
+    radarr_base_url = input(
+        f"Radarr base URL [{config.radarr_config.base_url if config else f'http://{nas_ip}:7878/api/v3'}]: "
+    )
+    radarr_base_url = radarr_base_url or (
+        config.radarr_config.base_url if config else f"http://{nas_ip}:7878/api/v3"
+    )
     
     # Sonarr configuration
     sonarr_api_key = input(f"Sonarr API key [{config.sonarr_config.api_key if config else ''}]: ")
@@ -46,11 +47,12 @@ def configure():
     if not sonarr_api_key:
         logging.warning("Warning: Sonarr API key is required for TV show functionality!")
     
-    sonarr_port = input(f"Sonarr port [{config.sonarr_config.port if config else '8989'}]: ")
-    sonarr_port = sonarr_port or (config.sonarr_config.port if config else '8989')
-    
-    sonarr_base_path = input(f"Sonarr API base path [{config.sonarr_config.base_path if config else '/api/v3'}]: ")
-    sonarr_base_path = sonarr_base_path or (config.sonarr_config.base_path if config else '/api/v3')
+    sonarr_base_url = input(
+        f"Sonarr base URL [{config.sonarr_config.base_url if config else f'http://{nas_ip}:8989/api/v3'}]: "
+    )
+    sonarr_base_url = sonarr_base_url or (
+        config.sonarr_config.base_url if config else f"http://{nas_ip}:8989/api/v3"
+    )
     
     # Server configuration
     server_port = input(f"MCP server port [{config.server_config.port if config else '3000'}]: ")
@@ -71,13 +73,11 @@ def configure():
         ),
         radarr_config=RadarrConfig(
             api_key=radarr_api_key,
-            base_path=radarr_base_path,
-            port=radarr_port
+            base_url=radarr_base_url
         ),
         sonarr_config=SonarrConfig(
             api_key=sonarr_api_key,
-            base_path=sonarr_base_path,
-            port=sonarr_port
+            base_url=sonarr_base_url
         ),
         server_config=ServerConfig(
             port=server_port

@@ -1,6 +1,6 @@
 # Radarr and Sonarr MCP Server
 
-A Python-based Model Context Protocol (MCP) server that provides AI assistants like Claude with access to your Radarr (movies) and Sonarr (TV series) data.
+A Python-based Model Context Protocol (MCP) server that provides AI assistants like Claude with access to your Radarr (movies) and Sonarr (TV series) data. The project also includes lightweight wrappers for additional `arr` applications so the same tooling can be used with Whisparr, Lidarr and Readarr.
 
 ## Overview
 
@@ -11,10 +11,27 @@ This MCP server allows AI assistants to query your movie and TV show collection 
 - **Native MCP Implementation**: Built with FastMCP for seamless AI integration
 - **Radarr Integration**: Access your movie collection
 - **Sonarr Integration**: Access your TV show and episode data
+- **Whisparr/Lidarr/Readarr Support**: Re-usable service clients for the wider `arr` ecosystem
 - **Rich Filtering**: Filter by year, watched status, actors, and more
 - **Claude Desktop Compatible**: Works seamlessly with Claude's MCP client
 - **Easy Setup**: Interactive configuration wizard
 - **Well-tested**: Comprehensive test suite for reliability
+
+## Project Structure
+
+Arr service wrappers live in the top-level `arrs/` package for clarity:
+
+```
+arrs/
+  base.py        # shared HTTP helpers
+  radarr.py      # Radarr client and Movie model
+  sonarr.py      # Sonarr client and Series/Episode models
+  lidarr.py      # Lidarr client
+  whisparr.py    # Whisparr client
+  readarr.py     # Readarr client
+```
+
+The MCP server and CLI remain under `radarr_sonarr_mcp/`.
 
 ## Installation
 
@@ -36,6 +53,31 @@ This MCP server allows AI assistants to query your movie and TV show collection 
 ```bash
 pip install radarr-sonarr-mcp
 ```
+
+## Setup scripts
+
+Scripts are provided to help capture endpoint URLs and API keys for the various `arr` services. The keys are stored in your operating system's keyring while the host URLs are written to `~/.yarr_config.json`.
+
+On Linux:
+
+```bash
+scripts/setup_linux.sh
+```
+
+On Windows PowerShell:
+
+```powershell
+scripts/setup_windows.ps1
+```
+
+You will be prompted with questions such as:
+
+```
+Please enter your Sonarr Host URL: https://sonarr.example.com
+Please enter your Sonarr Api Key: <your key>
+```
+
+Repeat the prompts for Radarr, Whisparr, Lidarr and Readarr.
 
 ## Quick Start
 
