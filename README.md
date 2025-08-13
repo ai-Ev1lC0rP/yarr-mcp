@@ -4,9 +4,14 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/radarr-sonarr-mcp.svg)](https://pypi.org/project/radarr-sonarr-mcp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<p align="center">
+
+
   <img src="docs/images/radarr.svg" alt="Radarr logo" width="130"/>
   <img src="docs/images/sonarr.svg" alt="Sonarr logo" width="130"/>
+
+  <img src="https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/Radarr.png" alt="Radarr logo" width="130"/>
+  <img src="https://raw.githubusercontent.com/Sonarr/Sonarr/develop/Logo/Sonarr.svg" alt="Sonarr logo" width="130"/>
+
 </p>
 
 A Python-based [Model Context Protocol](https://github.com/modelcontextprotocol) server that gives AI assistants like Claude natural-language access to your Radarr (movies) and Sonarr (TV series) libraries.
@@ -39,12 +44,12 @@ flowchart LR
 
 ```
 arrs/
-  base.py        # shared HTTP helpers
-  radarr.py      # Radarr client and Movie model
-  sonarr.py      # Sonarr client and Series/Episode models
-  lidarr.py      # Lidarr client
-  whisparr.py    # Whisparr client
-  readarr.py     # Readarr client
+  base.py     # shared HTTP helpers
+  radarr/     # Radarr client and Movie model
+  sonarr/     # Sonarr client and Series/Episode models
+  lidarr/     # Lidarr client
+  whisparr/   # Whisparr client
+  readarr/    # Readarr client
 ```
 
 The MCP server and CLI live under `radarr_sonarr_mcp/`.
@@ -176,6 +181,9 @@ All `*arr` services expose their API key in the same location.
 ### Radarr API Key
 1. Open Radarr in your browser
 2. Go to **Settings → General**
+=======
+2. Go to Settings → General
+
 3. Copy the **API Key**
 
 ### Sonarr API Key
@@ -184,6 +192,9 @@ All `*arr` services expose their API key in the same location.
 3. Copy the **API Key**
 
 The API key for Lidarr, Whisparr, Readarr, and other Arr apps is found under **Settings → General** as well.
+=======
+2. Go to Settings → General
+3. Copy the **API Key**
 
 ## Development
 
