@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+import os
 
 from .config import Config, NasConfig, RadarrConfig, SonarrConfig, ServerConfig, load_config, save_config
 from .server import create_server
@@ -55,15 +56,16 @@ def configure():
     )
     
     # Server configuration
-    server_port = input(f"MCP server port [{config.server_config.port if config else '3000'}]: ")
+    default_port = config.server_config.port if config else int(os.getenv("MCP_SERVER_PORT", "3333"))
+    server_port = input(f"MCP server port [{default_port}]: ")
     if server_port:
         try:
             server_port = int(server_port)
         except ValueError:
             logging.warning("Invalid port number, using default.")
-            server_port = config.server_config.port if config else 3000
+            server_port = default_port
     else:
-        server_port = config.server_config.port if config else 3000
+        server_port = default_port
     
     # Create new config
     new_config = Config(

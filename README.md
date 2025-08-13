@@ -118,8 +118,9 @@ values in `~/.yarr_config.json`.
 radarr-sonarr-mcp start
 ```
 
-By default the server listens on port `3000`. Add `http://localhost:3000` as an
-MCP server in your client (e.g. Claude Desktop).
+By default the server listens on the port defined by the `MCP_SERVER_PORT`
+environment variable (default `3333`). Add `http://localhost:3333` as an MCP
+server in your client (e.g. Claude Desktop).
 
 For quick local iteration you can run the server directly:
 
