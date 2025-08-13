@@ -19,16 +19,16 @@ This MCP server allows AI assistants to query your movie and TV show collection 
 
 ## Project Structure
 
-Arr service wrappers live in the top-level `arrs/` package for clarity:
+Arr service wrappers now live in dedicated subfolders under the top-level `arrs/` package for clarity:
 
 ```
 arrs/
-  base.py        # shared HTTP helpers
-  radarr.py      # Radarr client and Movie model
-  sonarr.py      # Sonarr client and Series/Episode models
-  lidarr.py      # Lidarr client
-  whisparr.py    # Whisparr client
-  readarr.py     # Readarr client
+  base.py     # shared HTTP helpers
+  radarr/     # Radarr client and Movie model
+  sonarr/     # Sonarr client and Series/Episode models
+  lidarr/     # Lidarr client
+  whisparr/   # Whisparr client
+  readarr/    # Readarr client
 ```
 
 The MCP server and CLI remain under `radarr_sonarr_mcp/`.
