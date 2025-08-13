@@ -11,7 +11,6 @@
   <img src="https://raw.githubusercontent.com/Lidarr/Lidarr/develop/Logo/Lidarr.svg" alt="Lidarr logo" width="130"/>
   <img src="https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/Prowlarr.svg" alt="Prowlarr logo" width="130"/>
   <img src="https://raw.githubusercontent.com/Whisparr/Whisparr/develop/Logo/Whisparr.svg" alt="Whisparr logo" width="130"/>
-  <img src="https://raw.githubusercontent.com/morpheus65535/bazarr/master/frontend/src/assets/img/logo-dark.png" alt="Bazarr logo" width="130"/>
 </p>
 
 Yarr is a Python-based [Model Context Protocol](https://github.com/modelcontextprotocol)
