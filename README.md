@@ -24,6 +24,36 @@ flowchart TD
     ARR --> Lidarr[lidarr.py]
     ARR --> Whisparr[whisparr.py]
     ARR --> Readarr[readarr.py]
+=======
+# Radarr & Sonarr MCP Server
+
+[![PyPI version](https://img.shields.io/pypi/v/radarr-sonarr-mcp.svg)](https://pypi.org/project/radarr-sonarr-mcp/)
+[![Python versions](https://img.shields.io/pypi/pyversions/radarr-sonarr-mcp.svg)](https://pypi.org/project/radarr-sonarr-mcp/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
+  <img src="docs/images/radarr.svg" alt="Radarr logo" width="130"/>
+  <img src="docs/images/sonarr.svg" alt="Sonarr logo" width="130"/>
+
+  <img src="https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/Radarr.png" alt="Radarr logo" width="130"/>
+  <img src="https://raw.githubusercontent.com/Sonarr/Sonarr/develop/Logo/Sonarr.svg" alt="Sonarr logo" width="130"/>
+
+</p>
+
+A Python-based [Model Context Protocol](https://github.com/modelcontextprotocol) server that gives AI assistants like Claude natural-language access to your Radarr (movies) and Sonarr (TV series) libraries.
+Lightweight clients for the rest of the `arr` ecosystem – Lidarr, Whisparr and Readarr – are included so you can extend the same tooling to music, adult content and ebooks.
+
+## How does it work?
+
+```mermaid
+flowchart LR
+    Client[Claude Desktop\n or any MCP Client] -->|MCP| Server[Radarr & Sonarr MCP Server]
+    Server -->|REST API| Radarr
+    Server -->|REST API| Sonarr
+    Server -->|Optional| Whisparr
+    Server -->|Optional| Lidarr
+    Server -->|Optional| Readarr
 ```
 
 ## Features
@@ -41,19 +71,24 @@ flowchart TD
 
 ```
 arrs/
-  base.py        # shared HTTP helpers
-  radarr.py      # Radarr client and Movie model
-  sonarr.py      # Sonarr client and Series/Episode models
-  lidarr.py      # Lidarr client
-  whisparr.py    # Whisparr client
-  readarr.py     # Readarr client
+  base.py     # shared HTTP helpers
+  radarr/     # Radarr client and Movie model
+  sonarr/     # Sonarr client and Series/Episode models
+  lidarr/     # Lidarr client
+  whisparr/   # Whisparr client
+  readarr/    # Readarr client
 ```
 
-The Yarr MCP server and CLI live under the `radarr_sonarr_mcp/` package.
 
-## Installation
+=======
 
-### From source
+```bash
+git clone https://github.com/yourusername/radarr-sonarr-mcp.git
+cd radarr-sonarr-mcp
+pip install -e .
+```
+
+### Using pip (coming soon)
 
 ```bash
 git clone https://github.com/yourusername/yarr-mcp.git
@@ -61,18 +96,7 @@ cd yarr-mcp
 pip install -e .
 ```
 
-### Using pip (coming soon)
 
-```bash
-pip install yarr-mcp
-```
-
-## Configuration
-
-Run the interactive wizard to capture API endpoints and keys. Endpoint URLs are stored in `~/.yarr_config.json` and keys are saved in your OS keyring.
-
-```bash
-yarr-mcp configure
 ```
 
 Example `config.json`:
@@ -102,6 +126,8 @@ Example `config.json`:
 ### Setup scripts
 
 Collect keys automatically with the provided scripts:
+=======
+Bootstrap the project and collect service credentials with the provided scripts:
 
 ```bash
 # Linux
@@ -127,6 +153,31 @@ Please enter your Sonarr Api Key: <your key>
 2. Start it:
    ```bash
    yarr-mcp start
+=======
+
+These scripts will:
+
+- Ensure Python 3 is available and create a virtual environment in `.venv`
+- Install dependencies from `requirements.txt`
+- Prompt for service host URLs and API keys
+- Write the values to a `.env` file and to `~/.yarr_config.json` with keys stored in your OS keyring
+
+You will be prompted for each service:
+
+```
+Please enter your Sonarr Host URL: https://sonarr.example.com
+Please enter your Sonarr Api Key: <your key>
+```
+
+## Quick Start
+
+1. Configure the server:
+   ```bash
+   radarr-sonarr-mcp configure
+   ```
+2. Start it:
+   ```bash
+   radarr-sonarr-mcp start
    ```
 3. Connect Claude Desktop:
    - Open **Settings → MCP Servers**
@@ -171,21 +222,13 @@ Once connected to Claude Desktop you can ask:
 - "Find movies with Tom Hanks that I haven't watched yet"
 - "How many episodes of *Stranger Things* are downloaded?"
 
-## Finding API Keys
 
-All `*arr` services expose their API key in the same location.
-
-### Radarr API Key
-1. Open Radarr in your browser
-2. Go to **Settings → General**
-3. Copy the **API Key**
-
-### Sonarr API Key
-1. Open Sonarr in your browser
-2. Go to **Settings → General**
-3. Copy the **API Key**
 
 The API key for Lidarr, Whisparr, Readarr, and other Arr apps is found under **Settings → General** as well.
+=======
+=======
+2. Go to Settings → General
+3. Copy the **API Key**
 
 ## Development
 
