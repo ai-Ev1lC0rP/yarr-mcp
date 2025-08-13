@@ -87,13 +87,12 @@ For additional details on installing and configuring these services, consult the
 ```mermaid
 flowchart TD
     Yarr[yarr-mcp]
-    Yarr --> Server[radarr_sonarr_mcp/]
     Yarr --> ARR[arrs/]
-    ARR --> Radarr[radarr/]
-    ARR --> Sonarr[sonarr/]
-    ARR --> Lidarr[lidarr/]
-    ARR --> Whisparr[whisparr/]
-    ARR --> Readarr[readarr/]
+    ARR ---> Radarr[radarr/]
+    ARR ---> Sonarr[sonarr/]
+    ARR ---> Lidarr[lidarr/]
+    ARR ---> Whisparr[whisparr/]
+    ARR ---> Readarr[readarr/]
 ```
 
 ## Installation
