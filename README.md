@@ -1,3 +1,30 @@
+# Yarr MCP Server
+
+[![PyPI version](https://img.shields.io/pypi/v/yarr-mcp.svg)](https://pypi.org/project/yarr-mcp/)
+[![Python versions](https://img.shields.io/pypi/pyversions/yarr-mcp.svg)](https://pypi.org/project/yarr-mcp/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+<p align="center">
+  <img src="./docs/images/radarr.svg" alt="Radarr logo" width="130"/>
+  <img src="./docs/images/sonarr.svg" alt="Sonarr logo" width="130"/>
+</p>
+
+Yarr is a Python-based [Model Context Protocol](https://github.com/modelcontextprotocol) server that gives AI assistants like Claude natural-language access to your Radarr (movies) and Sonarr (TV series) libraries.
+Lightweight clients for the rest of the `arr` ecosystem – Lidarr, Whisparr and Readarr – are included so you can extend the same tooling to music, adult content and ebooks.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    Yarr[yarr-mcp]
+    Yarr --> Server[radarr_sonarr_mcp/]
+    Yarr --> ARR[arrs/]
+    ARR --> Radarr[radarr.py]
+    ARR --> Sonarr[sonarr.py]
+    ARR --> Lidarr[lidarr.py]
+    ARR --> Whisparr[whisparr.py]
+    ARR --> Readarr[readarr.py]
+=======
 # Radarr & Sonarr MCP Server
 
 [![PyPI version](https://img.shields.io/pypi/v/radarr-sonarr-mcp.svg)](https://pypi.org/project/radarr-sonarr-mcp/)
@@ -52,11 +79,8 @@ arrs/
   readarr/    # Readarr client
 ```
 
-The MCP server and CLI live under `radarr_sonarr_mcp/`.
 
-## Installation
-
-### From source
+=======
 
 ```bash
 git clone https://github.com/yourusername/radarr-sonarr-mcp.git
@@ -67,15 +91,12 @@ pip install -e .
 ### Using pip (coming soon)
 
 ```bash
-pip install radarr-sonarr-mcp
+git clone https://github.com/yourusername/yarr-mcp.git
+cd yarr-mcp
+pip install -e .
 ```
 
-## Configuration
 
-Run the interactive wizard to capture API endpoints and keys. Endpoint URLs are stored in `~/.yarr_config.json` and keys are saved in your OS keyring.
-
-```bash
-radarr-sonarr-mcp configure
 ```
 
 Example `config.json`:
@@ -104,6 +125,8 @@ Example `config.json`:
 
 ### Setup scripts
 
+Collect keys automatically with the provided scripts:
+=======
 Bootstrap the project and collect service credentials with the provided scripts:
 
 ```bash
@@ -113,6 +136,24 @@ scripts/setup_linux.sh
 # Windows PowerShell
 scripts/setup_windows.ps1
 ```
+
+You will be prompted for each service:
+
+```
+Please enter your Sonarr Host URL: https://sonarr.example.com
+Please enter your Sonarr Api Key: <your key>
+```
+
+## Quick Start
+
+1. Configure the server:
+   ```bash
+   yarr-mcp configure
+   ```
+2. Start it:
+   ```bash
+   yarr-mcp start
+=======
 
 These scripts will:
 
@@ -181,24 +222,10 @@ Once connected to Claude Desktop you can ask:
 - "Find movies with Tom Hanks that I haven't watched yet"
 - "How many episodes of *Stranger Things* are downloaded?"
 
-## Finding API Keys
 
-All `*arr` services expose their API key in the same location.
-
-### Radarr API Key
-1. Open Radarr in your browser
-2. Go to **Settings → General**
-=======
-2. Go to Settings → General
-
-3. Copy the **API Key**
-
-### Sonarr API Key
-1. Open Sonarr in your browser
-2. Go to **Settings → General**
-3. Copy the **API Key**
 
 The API key for Lidarr, Whisparr, Readarr, and other Arr apps is found under **Settings → General** as well.
+=======
 =======
 2. Go to Settings → General
 3. Copy the **API Key**
@@ -213,7 +240,7 @@ pip install -e .[dev]
 pytest
 
 # Run tests with coverage
-pytest --cov=radarr_sonarr_mcp
+pytest --cov=yarr_mcp
 ```
 
 For quick local iteration:
